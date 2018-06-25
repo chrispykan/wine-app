@@ -1,13 +1,35 @@
 import React, { Component } from 'react';
+import WineModel from '../models/Wine.js'
+import Wines from '../components/WineList.js'
+
 
 class WinesContainer extends Component {
-  render() {
+  constructor(){
+    super()
+    this.state = {
+      wines: []
+    }
+  }
+  componentDidMount(){
+    this.fetchData()
+  }
+  fetchData(){
+    WineModel.all().then( (res) => {
+      this.setState ({
+        wines: res.data.wines,
+        wine: ''
+      })
+    })
+  }
+  render(){
     return (
-      <div>
-        <h1>WinesContainer</h1>
-        </div>
-    );
+      <div className="winesComponent">
+        <Wines
+          wines={this.state.wines} />
+      </div>
+    )
   }
 }
+
 
 export default WinesContainer
