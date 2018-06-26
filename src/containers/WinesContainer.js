@@ -8,10 +8,15 @@ class WinesContainer extends Component {
   constructor(){
     super()
     this.state = {
-      wines: []
+      wines: [],
+      editingWineId: null,
+      editing: false
     }
     this.createWine = this.createWine.bind(this);
     this.deleteWine = this.deleteWine.bind(this);
+    this.updateWine = this.updateWine.bind(this);
+    this.editWine = this.editWine.bind(this);
+    
   }
   componentDidMount(){
     this.fetchData()
@@ -42,18 +47,39 @@ class WinesContainer extends Component {
       this.setState({wines})
     })
   }
+  updateWine(wineName) {
+    var wineId = this.state.editingWineId
+    function isUpdatedWine(wine) {
+      return wine._id === wineId;
+    }
+  WineModel.update(wineId, wineName).then((res) =>{
+    let wines = this.state.wines
+    wines.find(isUpdatedWine).name = wineName
+    this.setState({wines: wines, editingWineId: null, editing: false})
+  })
+  }
+  editWine(wine) {
+    this.setState({
+      editingWineId: wine._id,
+      editing: true
+    })
+  }
   render(){
     return (
-      <div className="winesComponent">
+      <div className="winesContainer">
+        <h2>This is the Wines Container</h2>
         <Wines
           wines={this.state.wines}
-          onDeleteWine={this.deleteWine} />
-          <CreateWineForm
-            createWine={this.createWine}/>
+          editingWineId={this.state.editingWineId}
+          onEditWine={this.editWine}
+          onDeleteWine={this.deleteWine} 
+          onUpdateWine={this.updateWine} />
+        <CreateWineForm
+          createWine={this.createWine}/>
       </div>
     )
   }
-}
+  }
 
 
 export default WinesContainer

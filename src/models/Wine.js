@@ -13,6 +13,12 @@ class WineModel {
     let request = axios.delete (`https://super-crud-api.herokuapp.com/api/wines/${wine._id}`)
     return request
   }
+  static update(wineId, wineName) {
+    let request = axios.put(`https://super-crud-api.herokuapp.com/api/wines/${wineId}`, {
+      name: wineName
+    })
+    return request
+  }
 }
 
 export default WineModel

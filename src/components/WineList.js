@@ -8,7 +8,10 @@ class Wines extends Component {
         <Wine
         key={wine._id}
         wine={wine}
+        editingWineId={this.props.editingWineId}
+        onEditWine={this.props.onEditWine}
         onDeleteWine={this.props.onDeleteWine}
+        onUpdateWine={this.props.onUpdateWine}
         />
       )
     })
