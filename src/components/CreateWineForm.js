@@ -8,20 +8,20 @@ import React, { Component } from 'react';
     this.onInputChange = this.onInputChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
    }
-  onInputChanges(e){
+  onInputChange(e){
     this.setState({
       wine: e.target.value
     })
   } 
-
   onFormSubmit(e){
     e.preventDefault()
     let wine = this.state.wine
     this.props.createWine(wine)
-    this.state.setState({
+    this.setState({
        wine: ''
     })
   }
+  
   render() {
     return(
       <div className="createForm wineForm">

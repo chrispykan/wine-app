@@ -10,7 +10,7 @@ class WinesContainer extends Component {
     this.state = {
       wines: []
     }
-    this.createWine = this.createWine.bind(this)
+    this.createWine = this.createWine.bind(this);
   }
   componentDidMount(){
     this.fetchData()
@@ -23,27 +23,24 @@ class WinesContainer extends Component {
       })
     })
   }
-  createWine(wine){
+  createWine(wine) {
     let newWine = {
       body: wine,
       completed: false
     }
-    WineModel.create(newWine).then((res) =>{
+    WineModel.create(newWine).then((res) => {
       let wines = this.state.wines
       let newWines = wines.push(res.data)
-      this.setState({ newWines})
+      this.setState({newWines})
     })
   }
-
   render(){
     return (
       <div className="winesComponent">
         <Wines
           wines={this.state.wines} />
-
           <CreateWineForm
-            createWine={ this.createWine }
-            />
+            createWine={this.createWine}/>
       </div>
     )
   }
