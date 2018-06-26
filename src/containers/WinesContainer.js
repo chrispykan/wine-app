@@ -11,6 +11,7 @@ class WinesContainer extends Component {
       wines: []
     }
     this.createWine = this.createWine.bind(this);
+    this.deleteWine = this.deleteWine.bind(this);
   }
   componentDidMount(){
     this.fetchData()
@@ -25,8 +26,7 @@ class WinesContainer extends Component {
   }
   createWine(wine) {
     let newWine = {
-      body: wine,
-      completed: false
+      name: wine
     }
     WineModel.create(newWine).then((res) => {
       let wines = this.state.wines
@@ -34,11 +34,20 @@ class WinesContainer extends Component {
       this.setState({newWines})
     })
   }
+  deleteWine(wine) {
+    WineModel.delete(wine).then((res) => {
+      let wines = this.state.wines.filter(function(wine) {
+        return wine._id !== res.data._id
+      });
+      this.setState({wines})
+    })
+  }
   render(){
     return (
       <div className="winesComponent">
         <Wines
-          wines={this.state.wines} />
+          wines={this.state.wines}
+          onDeleteWine={this.deleteWine} />
           <CreateWineForm
             createWine={this.createWine}/>
       </div>

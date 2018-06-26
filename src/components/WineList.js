@@ -7,7 +7,9 @@ class Wines extends Component {
       return (
         <Wine
         key={wine._id}
-        wine={wine}/>
+        wine={wine}
+        onDeleteWine={this.props.onDeleteWine}
+        />
       )
     })
     return(
